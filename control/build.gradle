@@ -1,0 +1,19 @@
+group 'SchedulingSoftware'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile project(':models')
+    compile group: 'com.google.inject', name: 'guice-parent', version: '3.0'
+    compile 'net.jmob:guice.conf:1.2.0'
+
+
+}
