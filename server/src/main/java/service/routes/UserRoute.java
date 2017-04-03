@@ -6,6 +6,7 @@ import control.user.UserControlImpl;
 import lombok.extern.slf4j.Slf4j;
 import models.User;
 import spark.*;
+import util.JsonUtil;
 
 /**
  * This is the basic implementation of a Spark route handler. Each call from the framework gets a Spark request and
@@ -35,10 +36,14 @@ public class UserRoute extends Route {
     public String create(Request request, Response response) {
         log.info("create user called");
         try {
-            if (userService.createUser(request.queryParams("name"), request.queryParams("email")) != null) {
-                response.status(200);
-                return "ok";
-            } else {
+            User user = JsonUtil.fromJson(request.body(), User.class);
+
+            if (user == null) {
+                response.status(400);
+                return "unable to parse request body";
+            }
+
+            if (userService.createUser(user) == null) {
                 response.status(400);
                 return "issue creating user";
             }
@@ -47,5 +52,8 @@ public class UserRoute extends Route {
             response.status(500);
             return "error";
         }
+
+        response.status(200);
+        return "ok";
     }
 }

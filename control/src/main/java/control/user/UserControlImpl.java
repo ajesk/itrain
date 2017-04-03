@@ -1,9 +1,10 @@
 package control.user;
 
 import models.User;
-
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Created by Aaron on 2/17/17.
@@ -12,28 +13,35 @@ import java.util.List;
  * manipulate data in the control layer. To use a database in place of this you will need to create a DB handler and
  * inject it here for use.
  *
- * todo: fix this ish putting stuff still don't work fam.
  */
 public class UserControlImpl implements UserControl {
-    private List<User> users = new ArrayList<>();
+    //private List<User> users = new ArrayList<>();
+    private Map<Integer, User> users = new HashMap<>();
+    private int counter = 0;
+
     public List<User> getAllUsers() {
-        return users;
+        return users.entrySet().stream()
+                .map(entry -> entry.getValue())
+                .collect(Collectors.toList());
     }
 
     public User getUser(String id) {
-        return new User();
+        int numericalId = Integer.parseInt(id);
+
+        return users.get(numericalId);
     }
 
-    public User createUser(String name, String email) {
-        User user = new User();
-        user.setEmail(email);
-        user.setName(name);
-        user.setId((users.size() + 1) + "");
-        users.add(user);
+    public User createUser(User user) {
+        user.setId((++counter));
+        users.put(user.getId(), user);
         return user;
     }
 
-    public User updateUser(String id, String name, String email) {
+    public User updateUser(User user) {
         return new User();
+    }
+
+    public boolean deleteUser(String id) {
+        return false;
     }
 }

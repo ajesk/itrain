@@ -13,6 +13,10 @@ public class JsonUtil {
         return gson.toJson(object);
     }
 
+    public static <T> T  fromJson(String json, Class<T> toClass) {
+        return new Gson().fromJson(json, toClass);
+    }
+
     public static ResponseTransformer json() {
         return JsonUtil::toJson;
     }
