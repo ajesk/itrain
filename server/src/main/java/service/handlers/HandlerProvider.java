@@ -13,8 +13,8 @@ import spark.Route;
  */
 @Slf4j
 public class HandlerProvider implements Provider<HandlerGrouping> {
-    HandlerGrouping handlerGrouping = new HandlerGrouping();
-    UserRoute userRoute;
+    private HandlerGrouping handlerGrouping = new HandlerGrouping();
+    private UserRoute userRoute;
 
     @Inject
     HandlerProvider(UserRoute userRoute) {
@@ -22,10 +22,7 @@ public class HandlerProvider implements Provider<HandlerGrouping> {
     }
 
     private void buildNewHandler(String method, String path, Route route) {
-        log.debug("adding route:");
-        log.debug("\t" + method);
-        log.debug("\t" + path);
-        log.debug("\t" + route);
+        log.debug("adding route: \t" + method + "\t" + path + "\t" + route);
         handlerGrouping.handlers.add(new Handler(method, path, route));
     }
 
@@ -34,6 +31,7 @@ public class HandlerProvider implements Provider<HandlerGrouping> {
         buildNewHandler("GET", "/hello", Hello::hello);
         buildNewHandler("GET", "/hello2", Hello2::hello);
         buildNewHandler("GET", "/user", userRoute::get);
+        buildNewHandler("PUT", "/user", userRoute::create);
         return handlerGrouping;
     }
 }

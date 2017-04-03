@@ -9,13 +9,8 @@ import java.util.List;
  * Created by Aaron on 2/17/17.
  */
 public class UserControlImpl implements UserControl {
+    private List<User> users = new ArrayList<>();
     public List<User> getAllUsers() {
-        List<User> users = new ArrayList<>();
-        User user = new User();
-        user.setEmail("adsf");
-        user.setName("aaa");
-        user.setId("1");
-        users.add(user);
         return users;
     }
 
@@ -24,7 +19,12 @@ public class UserControlImpl implements UserControl {
     }
 
     public User createUser(String name, String email) {
-        return new User();
+        User user = new User();
+        user.setEmail(email);
+        user.setName(name);
+        user.setId((users.size() + 1) + "");
+        users.add(user);
+        return user;
     }
 
     public User updateUser(String id, String name, String email) {
