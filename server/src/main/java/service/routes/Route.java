@@ -14,8 +14,9 @@ public abstract class Route {
     public Object get(Request request, Response response) {
         return "";
     }
-
     public String create(Request request, Response response) {
         return "";
     }
+    public String update(Request request, Response response) {return "";}
+    public String delete(Request request, Response response) {return "";}
 }

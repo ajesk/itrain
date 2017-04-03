@@ -10,6 +10,8 @@ import service.routes.RoutesModule;
 
 /**
  * Created by Aaron on 12/19/16.
+ *
+ * The crux!
  */
 @Slf4j
 public class App {
@@ -20,7 +22,7 @@ public class App {
         app.start();
     }
 
-    public void start() {
+    private void start() {
         Injector injector = Guice.createInjector(
             new ServiceModule(),
             new HandlerModule(),

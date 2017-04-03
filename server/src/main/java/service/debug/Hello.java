@@ -6,6 +6,8 @@ import spark.Response;
 
 /**
  * Created by Aaron on 2/3/17.
+ *
+ * Don't think too hard about this one
  */
 @Slf4j
 public class Hello {

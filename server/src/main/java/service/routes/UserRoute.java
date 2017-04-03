@@ -7,6 +7,14 @@ import lombok.extern.slf4j.Slf4j;
 import models.User;
 import spark.*;
 
+/**
+ * This is the basic implementation of a Spark route handler. Each call from the framework gets a Spark request and
+ * response object. Additional calls can be added here and/or in the Route abstract class and called from the
+ * HandlerProvider class.
+ *
+ * Try not to use this to handle any business logic as this should be treated more as a pass through to your Controller
+ * classes. This here should be utilized just to handle the Spark internals regarding the request and response.
+ */
 @Slf4j
 public class UserRoute extends Route {
 
@@ -25,13 +33,19 @@ public class UserRoute extends Route {
 
     @Override
     public String create(Request request, Response response) {
-        if (userService.createUser(request.queryParams("name"), request.queryParams("email")) != null) {
-            response.status(200);
-            return "ok";
-        } else {
+        log.info("create user called");
+        try {
+            if (userService.createUser(request.queryParams("name"), request.queryParams("email")) != null) {
+                response.status(200);
+                return "ok";
+            } else {
+                response.status(400);
+                return "issue creating user";
+            }
+        } catch (Exception e) {
+            log.error("exception caught in handling: " + e.getMessage());
             response.status(500);
             return "error";
         }
-
     }
 }

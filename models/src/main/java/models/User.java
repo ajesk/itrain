@@ -4,6 +4,8 @@ import lombok.Data;
 
 /**
  * Created by Aaron on 2/17/17.
+ *
+ * Just a model
  */
 @Data
 public class User {
