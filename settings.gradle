@@ -1,4 +1,4 @@
-rootProject.name = 'SchedulingSoftware'
+rootProject.name = 'spark-starter'
 include ':server'
 include ':server'
 include ':models'

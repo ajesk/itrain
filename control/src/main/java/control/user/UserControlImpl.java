@@ -1,5 +1,6 @@
 package control.user;
 
+import lombok.extern.slf4j.Slf4j;
 import models.User;
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +15,8 @@ import java.util.stream.Collectors;
  * inject it here for use.
  *
  */
+
+@Slf4j
 public class UserControlImpl implements UserControl {
     //private List<User> users = new ArrayList<>();
     private Map<Integer, User> users = new HashMap<>();
@@ -38,10 +41,18 @@ public class UserControlImpl implements UserControl {
     }
 
     public User updateUser(User user) {
-        return new User();
+        users.put(user.getId(), user);
+        return user;
     }
 
     public boolean deleteUser(String id) {
-        return false;
+        try {
+            int numericalId = Integer.parseInt(id);
+            users.remove(numericalId);
+        } catch (Exception e) {
+            return false;
+        }
+
+        return true;
     }
 }
