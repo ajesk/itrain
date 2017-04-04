@@ -3,8 +3,6 @@ package service.handlers;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import lombok.extern.slf4j.Slf4j;
-import service.debug.Hello;
-import service.debug.Hello2;
 import service.routes.UserRoute;
 import spark.Route;
 
@@ -33,8 +31,6 @@ public class HandlerProvider implements Provider<HandlerGrouping> {
 
     @Override
     public HandlerGrouping get() {
-        buildNewHandler("GET", "/hello", Hello::hello);
-        buildNewHandler("GET", "/hello2", Hello2::hello);
         buildNewHandler("GET", "/user", userRoute::get);
         buildNewHandler("PUT", "/user", userRoute::create);
         return handlerGrouping;
