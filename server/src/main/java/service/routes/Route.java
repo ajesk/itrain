@@ -14,6 +14,7 @@ public abstract class Route {
     public Object get(Request request, Response response) {
         return "";
     }
+    public Object getById(Request request, Response response) { return "";}
     public String create(Request request, Response response) {
         return "";
     }

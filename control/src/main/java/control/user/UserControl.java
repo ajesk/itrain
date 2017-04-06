@@ -11,7 +11,8 @@ import java.util.List;
  */
 public interface UserControl {
     List<User> getAllUsers();
-    User getUser(String id);
-    User createUser(User user);
-    User updateUser(User user);
+    User getUser(int id);
+    boolean createUser(User user);
+    boolean updateUser(User user);
+    boolean deleteUser(int id);
 }

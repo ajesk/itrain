@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
  * This is the business logic sector of the application. Here is where you would handle the results from DB calls and
  * manipulate data in the control layer. To use a database in place of this you will need to create a DB handler and
  * inject it here for use.
- *
  */
 
 @Slf4j
@@ -28,31 +27,36 @@ public class UserControlImpl implements UserControl {
                 .collect(Collectors.toList());
     }
 
-    public User getUser(String id) {
-        int numericalId = Integer.parseInt(id);
-
-        return users.get(numericalId);
+    public User getUser(int id) {
+        return users.get(id);
     }
 
-    public User createUser(User user) {
-        user.setId((++counter));
-        users.put(user.getId(), user);
-        return user;
-    }
-
-    public User updateUser(User user) {
-        users.put(user.getId(), user);
-        return user;
-    }
-
-    public boolean deleteUser(String id) {
+    public boolean createUser(User user) {
         try {
-            int numericalId = Integer.parseInt(id);
-            users.remove(numericalId);
+            user.setId((++counter));
+            users.put(user.getId(), user);
+            return true;
         } catch (Exception e) {
+            log.error("exception caught during creation " + e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean updateUser(User user) {
+        if (user.getId() < 0) {
             return false;
         }
 
+        users.put(user.getId(), user);
+        return true;
+    }
+
+    public boolean deleteUser(int id) {
+        try {
+            users.remove(id);
+        } catch (Exception e) {
+            return false;
+        }
         return true;
     }
 }
