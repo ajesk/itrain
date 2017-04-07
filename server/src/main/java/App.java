@@ -17,6 +17,7 @@ import service.routes.RoutesModule;
 public class App {
 
     public static void main(String ... args) {
+        //System.setProperty("logback.configurationFile", "logback.xml");
         log.info("starting application");
         App app = new App();
         app.start();

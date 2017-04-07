@@ -19,6 +19,8 @@ dependencies {
     compile 'net.jmob:guice.conf:1.2.0'
     compile 'io.swagger:swagger-core:1.5.8'
     compile 'io.swagger:swagger-jaxrs:1.5.8'
+    compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+    compile group: 'ch.qos.logback', name: 'logback-core', version: '1.2.3'
 
     compile project(':control')
     compile project(':util')
