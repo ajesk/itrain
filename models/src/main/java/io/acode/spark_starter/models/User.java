@@ -1,4 +1,4 @@
-package models;
+package io.acode.spark_starter.models;
 
 import lombok.Data;
 

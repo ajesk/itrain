@@ -1,18 +1,18 @@
-package control;
+package io.acode.spark_starter.service.routes;
 
 import com.google.common.reflect.ClassPath;
 import com.google.inject.AbstractModule;
-import control.user.UserControlImpl;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class ControlModule extends AbstractModule {
+public class RoutesModule extends AbstractModule {
     @Override
     protected void configure() {
         try {
             for (ClassPath.ClassInfo classInfo:
-                    ClassPath.from(getClass().getClassLoader()).getTopLevelClasses("control.*")) {
-                if (!classInfo.getName().toLowerCase().contains("impl")) {
+                    ClassPath.from(getClass().getClassLoader()).getTopLevelClasses("io.acode.spark_starter.service.routes")) {
+                if (classInfo.getName().equalsIgnoreCase("io.acode.spark_starter.service.routes.Route") ||
+                        classInfo.getName().equalsIgnoreCase("io.acode.spark_starter.service.routes.RoutesModule")) {
                     continue;
                 }
                 bind(classInfo.load()).asEagerSingleton();

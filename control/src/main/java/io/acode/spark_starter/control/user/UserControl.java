@@ -1,6 +1,6 @@
-package control.user;
+package io.acode.spark_starter.control.user;
 
-import models.User;
+import io.acode.spark_starter.models.User;
 
 import java.util.List;
 

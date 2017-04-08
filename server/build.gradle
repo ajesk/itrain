@@ -4,7 +4,7 @@ version '1.0-SNAPSHOT'
 apply plugin: 'java'
 apply plugin: 'application'
 
-mainClassName='App'
+mainClassName='io.acode.spark_starter.App'
 
 sourceCompatibility = 1.8
 

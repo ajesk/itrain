@@ -1,11 +1,11 @@
-package service;
+package io.acode.spark_starter.service;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import lombok.extern.slf4j.Slf4j;
-import service.handlers.Handler;
-import service.handlers.HandlerGrouping;
-import util.JsonUtil;
+import io.acode.spark_starter.service.handlers.Handler;
+import io.acode.spark_starter.service.handlers.HandlerGrouping;
+import io.acode.spark_starter.util.JsonUtil;
 
 import static spark.Spark.*;
 

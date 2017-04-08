@@ -1,8 +1,6 @@
 rootProject.name = 'spark-starter'
 include ':server'
-include ':server'
 include ':models'
 include ':util'
 include ':control'
-include 'db'
-
+include ':db'

@@ -1,7 +1,7 @@
-package control.user;
+package io.acode.spark_starter.control.user;
 
 import lombok.extern.slf4j.Slf4j;
-import models.User;
+import io.acode.spark_starter.models.User;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
  * Created by Aaron on 2/17/17.
  *
  * This is the business logic sector of the application. Here is where you would handle the results from DB calls and
- * manipulate data in the control layer. To use a database in place of this you will need to create a DB handler and
+ * manipulate data in the io.acode.spark_starter.control layer. To use a database in place of this you will need to create a DB handler and
  * inject it here for use.
  */
 

@@ -1,9 +1,9 @@
-package service.handlers;
+package io.acode.spark_starter.service.handlers;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import lombok.extern.slf4j.Slf4j;
-import service.routes.UserRoute;
+import io.acode.spark_starter.service.routes.UserRoute;
 import spark.Route;
 
 /**

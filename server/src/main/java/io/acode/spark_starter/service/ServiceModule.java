@@ -1,11 +1,11 @@
-package service;
+package io.acode.spark_starter.service;
 
 import com.google.inject.AbstractModule;
 
 /**
  * Created by Aaron on 2/3/17.
  *
- * Including the service module
+ * Including the io.acode.spark_starter.service module
  */
 public class ServiceModule extends AbstractModule {
 

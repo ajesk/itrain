@@ -1,12 +1,12 @@
-package service.routes;
+package io.acode.spark_starter.service.routes;
 
 import com.google.inject.Inject;
-import control.user.UserControl;
-import control.user.UserControlImpl;
+import io.acode.spark_starter.control.user.UserControl;
+import io.acode.spark_starter.control.user.UserControlImpl;
 import lombok.extern.slf4j.Slf4j;
-import models.User;
+import io.acode.spark_starter.models.User;
 import spark.*;
-import util.JsonUtil;
+import io.acode.spark_starter.util.JsonUtil;
 
 import java.util.List;
 

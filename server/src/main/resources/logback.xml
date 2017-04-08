@@ -9,7 +9,7 @@
         </layout>
     </appender>
 
-    <logger name="service" level="info"
+    <logger name="io.acode.spark_starter.service" level="info"
             additivity="false">
         <appender-ref ref="STDOUT" />
     </logger>

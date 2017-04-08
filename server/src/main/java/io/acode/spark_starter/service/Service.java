@@ -1,4 +1,4 @@
-package service;
+package io.acode.spark_starter.service;
 
 /**
  * Created by Aaron on 12/19/16.

@@ -1,4 +1,4 @@
-package service.handlers;
+package io.acode.spark_starter.service.handlers;
 
 import lombok.Data;
 

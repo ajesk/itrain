@@ -1,4 +1,4 @@
-group 'SchedulingSoftware'
+group 'spark-starter'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'

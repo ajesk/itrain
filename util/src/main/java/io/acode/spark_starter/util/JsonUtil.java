@@ -1,4 +1,4 @@
-package util;
+package io.acode.spark_starter.util;
 
 import com.google.gson.Gson;
 import spark.ResponseTransformer;

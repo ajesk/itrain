@@ -1,4 +1,4 @@
-package service.routes;
+package io.acode.spark_starter.service.routes;
 
 import spark.Request;
 import spark.Response;

@@ -1,12 +1,14 @@
+package io.acode.spark_starter;
+
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import control.ControlModule;
+import io.acode.spark_starter.control.ControlModule;
 import lombok.extern.slf4j.Slf4j;
-import service.Service;
-import service.ServiceImpl;
-import service.ServiceModule;
-import service.handlers.HandlerModule;
-import service.routes.RoutesModule;
+import io.acode.spark_starter.service.Service;
+import io.acode.spark_starter.service.ServiceImpl;
+import io.acode.spark_starter.service.ServiceModule;
+import io.acode.spark_starter.service.handlers.HandlerModule;
+import io.acode.spark_starter.service.routes.RoutesModule;
 
 /**
  * Created by Aaron on 12/19/16.
