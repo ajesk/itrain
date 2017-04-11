@@ -1,6 +1,7 @@
 package io.acode.spark_starter.service.routes;
 
 import com.google.inject.Inject;
+import io.acode.spark_starter.control.ControlResponse;
 import io.acode.spark_starter.control.user.UserControl;
 import io.acode.spark_starter.control.user.UserControlImpl;
 import lombok.extern.slf4j.Slf4j;
@@ -8,6 +9,7 @@ import io.acode.spark_starter.models.User;
 import spark.*;
 import io.acode.spark_starter.util.JsonUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,14 +33,20 @@ public class UserRoute extends Route {
     @Override
     public List<User> get(Request request, Response response) {
         log.info("get all users called");
-        List<User> users = userService.getAllUsers();
+        ControlResponse controlResponse = userService.getAllUsers();
 
-        if (users.size() == 0) {
+        if (!controlResponse.isSuccess()) {
             response.status(404);
-        } else {
-            response.status(200);
+            return new ArrayList<>();
         }
-        return users;
+
+        if (controlResponse.getResult() instanceof List && ((List) controlResponse.getResult()).get(0) instanceof User) {
+            response.status(200);
+            return (List<User>) controlResponse.getResult();
+        }
+
+        response.status(500);
+        return new ArrayList<>();
     }
 
     @Override
@@ -50,20 +58,25 @@ public class UserRoute extends Route {
             id = Integer.parseInt(request.params("id"));
         } catch (Exception e) {
             log.error("invalid id provided");
-            response.status(500);
+            response.status(422);
             return new User();
         }
 
-        User user = userService.getUser(id);
+        ControlResponse controlResponse = userService.getUser(id);
 
-        if (user == null) {
+        if (!controlResponse.isSuccess()) {
             log.warn("user not found");
             response.status(404);
             return null;
         }
 
-        response.status(200);
-        return user;
+        if (controlResponse.getResult() instanceof User) {
+            response.status(200);
+            return (User) controlResponse.getResult();
+        }
+
+        response.status(500);
+        return new User();
     }
 
     @Override

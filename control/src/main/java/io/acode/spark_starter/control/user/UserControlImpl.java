@@ -1,5 +1,6 @@
 package io.acode.spark_starter.control.user;
 
+import io.acode.spark_starter.control.ControlResponse;
 import lombok.extern.slf4j.Slf4j;
 import io.acode.spark_starter.models.User;
 import java.util.HashMap;
@@ -17,18 +18,27 @@ import java.util.stream.Collectors;
 
 @Slf4j
 public class UserControlImpl implements UserControl {
-    //private List<User> users = new ArrayList<>();
+    // Normally you would store to a database
     private Map<Integer, User> users = new HashMap<>();
     private int counter = 0;
 
-    public List<User> getAllUsers() {
-        return users.entrySet().stream()
-                .map(entry -> entry.getValue())
-                .collect(Collectors.toList());
+    public ControlResponse getAllUsers() {
+        List<User> userList = users.entrySet().stream()
+                    .map(entry -> entry.getValue())
+                    .collect(Collectors.toList());
+
+        if (userList.isEmpty()) {
+            return new ControlResponse(false, "no users found");
+        }
+
+        return new ControlResponse(userList);
     }
 
-    public User getUser(int id) {
-        return users.get(id);
+    public ControlResponse getUser(int id) {
+        if (!users.containsKey(id)) {
+            return new ControlResponse(false, "id does not exist");
+        }
+        return new ControlResponse(users.get(id));
     }
 
     public boolean createUser(User user) {
