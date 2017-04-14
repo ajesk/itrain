@@ -12,12 +12,13 @@ public class UserControllerTest extends TestCase {
     public void testCreateUser() {
         UserControl control = new UserControlImpl();
         User user = new User();
+
         user.setEmail("1111");
         user.setName("1111");
         control.createUser(user);
-        assertEquals(1, control.getAllUsers().size());
+        assertEquals(1, control.getAllUsers().getResult().size());
         control.createUser(user);
-        assertEquals(2, control.getAllUsers().size());
+        assertEquals(2, control.getAllUsers().getResult().size());
     }
 
     public void testGetAllUsers() {
@@ -29,7 +30,7 @@ public class UserControllerTest extends TestCase {
         for (int i = 0; i < 100; i++) {
             control.createUser(user);
         }
-        assertEquals(100, control.getAllUsers().size());
+        assertEquals(100, control.getAllUsers().getResult().size());
     }
 
     public void testGetUserById() {
@@ -42,7 +43,7 @@ public class UserControllerTest extends TestCase {
             control.createUser(user);
         }
 
-        assertEquals(50, control.getUser(50).getId());
+        assertEquals(50, control.getUser(50).getResult().getId());
     }
 
     public void testUpdateUser() {
@@ -53,9 +54,9 @@ public class UserControllerTest extends TestCase {
         user.setName("1111");
         control.createUser(user);
 
-        assertEquals(1, control.getUser(1).getId());
-        assertEquals("1111", control.getUser(1).getName());
-        assertEquals("1111", control.getUser(1).getEmail());
+        assertEquals(1, control.getUser(1).getResult().getId());
+        assertEquals("1111", control.getUser(1).getResult().getName());
+        assertEquals("1111", control.getUser(1).getResult().getEmail());
 
         User updateUser = new User();
         updateUser.setId(1);
@@ -64,9 +65,9 @@ public class UserControllerTest extends TestCase {
 
         control.updateUser(updateUser);
 
-        assertEquals(1, control.getUser(1).getId());
-        assertEquals("2222", control.getUser(1).getName());
-        assertEquals("2222", control.getUser(1).getEmail());
+        assertEquals(1, control.getUser(1).getResult().getId());
+        assertEquals("2222", control.getUser(1).getResult().getName());
+        assertEquals("2222", control.getUser(1).getResult().getEmail());
     }
 
     public void testDeleteUser() {
@@ -79,10 +80,10 @@ public class UserControllerTest extends TestCase {
             control.createUser(user);
         }
 
-        assertEquals(100, control.getAllUsers().size());
+        assertEquals(100, control.getAllUsers().getResult().size());
         control.deleteUser(50);
 
-        assertEquals(99, control.getAllUsers().size());
+        assertEquals(99, control.getAllUsers().getResult().size());
         assertNull(control.getUser(50));
     }
 }

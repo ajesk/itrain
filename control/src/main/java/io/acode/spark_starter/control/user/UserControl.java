@@ -11,9 +11,9 @@ import java.util.List;
  * Still working this guy out
  */
 public interface UserControl {
-    ControlResponse getAllUsers();
-    ControlResponse getUser(int id);
-    boolean createUser(User user);
-    boolean updateUser(User user);
-    boolean deleteUser(int id);
+    ControlResponse<List<User>> getAllUsers();
+    ControlResponse<User> getUser(int id);
+    ControlResponse createUser(User user);
+    ControlResponse updateUser(User user);
+    ControlResponse deleteUser(int id);
 }

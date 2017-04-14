@@ -9,10 +9,10 @@ import javax.naming.ldap.Control;
  * the API implementation.
  */
 @Data
-public class ControlResponse {
+public class ControlResponse <T> {
     String message = "";
     boolean success = true;
-    Object result = null;
+    T result = null;
 
     public ControlResponse() {}
     public ControlResponse(boolean success) {
@@ -22,7 +22,7 @@ public class ControlResponse {
         setSuccess(success);
         setMessage(message);
     }
-    public ControlResponse(boolean success, String message, Object result) {
+    public ControlResponse(boolean success, String message, T result) {
         setSuccess(success);
         setMessage(message);
         setResult(result);
@@ -30,11 +30,11 @@ public class ControlResponse {
     public ControlResponse(String message) {
         setMessage(message);
     }
-    public ControlResponse(String message, Object result) {
+    public ControlResponse(String message, T result) {
         setMessage(message);
         setResult(result);
     }
-    public ControlResponse(Object result) {
+    public ControlResponse(T result) {
         setResult(result);
     }
 }

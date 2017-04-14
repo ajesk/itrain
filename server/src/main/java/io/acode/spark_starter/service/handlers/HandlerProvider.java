@@ -33,7 +33,8 @@ public class HandlerProvider implements Provider<HandlerGrouping> {
     public HandlerGrouping get() {
         buildNewHandler("GET", "/user", userRoute::get);
         buildNewHandler("GET", "/user/:id", userRoute::getById);
-        buildNewHandler("PUT", "/user", userRoute::create);
+        buildNewHandler("POST", "/user", userRoute::create);
+        buildNewHandler("PUT", "/user", userRoute::update);
         buildNewHandler("DELETE", "/user/:id", userRoute::delete);
         return handlerGrouping;
     }

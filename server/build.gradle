@@ -1,9 +1,8 @@
-group 'SchedulingSoftware'
+group 'spark-starter'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
 apply plugin: 'application'
-
 mainClassName='io.acode.spark_starter.App'
 
 sourceCompatibility = 1.8

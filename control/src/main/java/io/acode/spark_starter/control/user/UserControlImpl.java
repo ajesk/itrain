@@ -22,51 +22,51 @@ public class UserControlImpl implements UserControl {
     private Map<Integer, User> users = new HashMap<>();
     private int counter = 0;
 
-    public ControlResponse getAllUsers() {
+    public ControlResponse<List<User>> getAllUsers() {
         List<User> userList = users.entrySet().stream()
                     .map(entry -> entry.getValue())
                     .collect(Collectors.toList());
 
         if (userList.isEmpty()) {
-            return new ControlResponse(false, "no users found");
+            return new ControlResponse<>(false, "no users found");
         }
 
-        return new ControlResponse(userList);
+        return new ControlResponse<>(userList);
     }
 
-    public ControlResponse getUser(int id) {
+    public ControlResponse<User> getUser(int id) {
         if (!users.containsKey(id)) {
-            return new ControlResponse(false, "id does not exist");
+            return new ControlResponse<>(false, "id does not exist");
         }
-        return new ControlResponse(users.get(id));
+        return new ControlResponse<>(users.get(id));
     }
 
-    public boolean createUser(User user) {
+    public ControlResponse createUser(User user) {
         try {
             user.setId((++counter));
             users.put(user.getId(), user);
-            return true;
+            return new ControlResponse();
         } catch (Exception e) {
             log.error("exception caught during creation " + e.getMessage());
-            return false;
+            return new ControlResponse(false, "user not created");
         }
     }
 
-    public boolean updateUser(User user) {
+    public ControlResponse updateUser(User user) {
         if (user.getId() < 0) {
-            return false;
+            return new ControlResponse(false);
         }
 
         users.put(user.getId(), user);
-        return true;
+        return new ControlResponse();
     }
 
-    public boolean deleteUser(int id) {
+    public ControlResponse deleteUser(int id) {
         try {
             users.remove(id);
         } catch (Exception e) {
-            return false;
+            return new ControlResponse(false);
         }
-        return true;
+        return new ControlResponse();
     }
 }

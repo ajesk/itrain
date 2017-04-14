@@ -33,19 +33,21 @@ public class UserRoute extends Route {
     @Override
     public List<User> get(Request request, Response response) {
         log.info("get all users called");
-        ControlResponse controlResponse = userService.getAllUsers();
 
-        if (!controlResponse.isSuccess()) {
-            response.status(404);
-            return new ArrayList<>();
-        }
+        try {
+            ControlResponse<List<User>> controlResponse = userService.getAllUsers();
+            if (!controlResponse.isSuccess()) {
+                response.status(404);
+                return new ArrayList<>();
+            }
 
-        if (controlResponse.getResult() instanceof List && ((List) controlResponse.getResult()).get(0) instanceof User) {
             response.status(200);
-            return (List<User>) controlResponse.getResult();
+            return controlResponse.getResult();
+        } catch (Exception e) {
+            log.info(e.getMessage());
+            e.printStackTrace();
         }
 
-        response.status(500);
         return new ArrayList<>();
     }
 
@@ -82,22 +84,18 @@ public class UserRoute extends Route {
     @Override
     public String create(Request request, Response response) {
         log.info("create user called");
-        try {
-            User user = JsonUtil.fromJson(request.body(), User.class);
+        User user = JsonUtil.fromJson(request.body(), User.class);
 
-            if (user == null) {
-                response.status(400);
-                return "unable to parse request body";
-            }
+        if (user == null) {
+            response.status(422);
+            return "unable to parse request body";
+        }
 
-            if (!userService.createUser(user)) {
-                response.status(500);
-                return "issue creating user";
-            }
-        } catch (Exception e) {
-            log.error("exception caught in handling: " + e.getMessage());
+        ControlResponse controlResponse = userService.createUser(user);
+
+        if (!controlResponse.isSuccess()) {
             response.status(500);
-            return "error";
+            return "unable to create user";
         }
 
         response.status(200);
@@ -115,9 +113,11 @@ public class UserRoute extends Route {
                 return "unable to parse request body";
             }
 
-            if (!userService.updateUser(user)) {
-                response.status(500);
-                return "issue updating user";
+            ControlResponse controlResponse = userService.updateUser(user);
+
+            if (!controlResponse.isSuccess()) {
+                response.status(404);
+                return "user does not exist";
             }
         } catch (Exception e) {
             log.error("exception caught in handling update: " + e.getMessage());
@@ -142,7 +142,9 @@ public class UserRoute extends Route {
             return "error";
         }
 
-        if (!userService.deleteUser(id)) {
+        ControlResponse controlResponse = userService.deleteUser(id);
+
+        if (!controlResponse.isSuccess()) {
             log.warn("user not deleted");
             response.status(404);
             return "error";
