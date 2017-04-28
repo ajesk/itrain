@@ -20,6 +20,7 @@ dependencies {
     compile 'io.swagger:swagger-jaxrs:1.5.8'
     compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
     compile group: 'ch.qos.logback', name: 'logback-core', version: '1.2.3'
+    compile group: 'io.swagger', name: 'swagger-annotations', version: '1.5.13'
 
     compile project(':control')
     compile project(':util')

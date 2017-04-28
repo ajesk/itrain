@@ -9,7 +9,7 @@ import javax.naming.ldap.Control;
  * the API implementation.
  */
 @Data
-public class ControlResponse <T> {
+public class ControlResponse<T> {
     String message = "";
     boolean success = true;
     T result = null;

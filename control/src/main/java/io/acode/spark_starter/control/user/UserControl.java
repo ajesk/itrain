@@ -8,7 +8,6 @@ import java.util.List;
 /**
  * Created by Aaron on 2/17/17.
  *
- * Still working this guy out
  */
 public interface UserControl {
     ControlResponse<List<User>> getAllUsers();

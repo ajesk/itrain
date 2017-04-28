@@ -34,9 +34,9 @@ This project contains a number of individual modules which encapsulates differin
 This piece is the crux of the application. All of the functionality of Spark itself is handled within this part. There are technically two sub-functions that occur within this package.
 
 * Routes - these are where the API calls are passed to through spark. These should only be handling parsing the body of any request (when applicable) and building out the response to be returned to the front end application. This should be treated just as a pass through to the controllers that handle the actual function of the call. NO BUSINESS LOGIC SHOULD OCCUR HERE.
+* In order to add API calls to additional routes, you can follow the user example in the ServiceImpl class to create additional references to new your new classes and methods.
 
 **Guice Note:** Dynamic binding is being used for the routes package so there is no need to worry about binding additional Route extended classes that you make.
-* Handlers - these classes are the objectified representation of the API for your restful services. You can easily build another API call by adding just one line to the HandlerProvider class which can call a method from the Routes package (You will also have to create the injection if you use another Route class).
 
 #### Control
 This is where all of your business logic should go. You can create additional controllers here by modeling you classes in the same fashion as the user implementation (UserControl interface and UserControlImpl actual functionality). All calls to classes here should come from the routes package from within the Server module.

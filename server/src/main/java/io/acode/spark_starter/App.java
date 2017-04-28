@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import io.acode.spark_starter.service.Service;
 import io.acode.spark_starter.service.ServiceImpl;
 import io.acode.spark_starter.service.ServiceModule;
-import io.acode.spark_starter.service.handlers.HandlerModule;
 import io.acode.spark_starter.service.routes.RoutesModule;
 
 /**
@@ -28,7 +27,6 @@ public class App {
     private void start() {
         Injector injector = Guice.createInjector(
             new ServiceModule(),
-            new HandlerModule(),
             new RoutesModule(),
             new ControlModule()
         );
