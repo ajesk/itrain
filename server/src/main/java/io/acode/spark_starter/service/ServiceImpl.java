@@ -4,8 +4,8 @@ import com.google.inject.Inject;
 import io.acode.spark_starter.service.routes.UserRoute;
 import lombok.extern.slf4j.Slf4j;
 import io.acode.spark_starter.util.JsonUtil;
+import spark.ResponseTransformer;
 import spark.Route;
-
 import static spark.Spark.*;
 
 /**
@@ -16,6 +16,7 @@ import static spark.Spark.*;
 @Slf4j
 public class ServiceImpl implements Service {
     private UserRoute userRoute = null;
+    private ResponseTransformer jsonTransformer = JsonUtil.json();
 
     @Inject
     public ServiceImpl(UserRoute userRoute) {
@@ -34,16 +35,16 @@ public class ServiceImpl implements Service {
     private void buildRoute(String method, String path, Route route) {
         switch (method.toUpperCase()) {
             case "GET":
-                get(path, method, route, JsonUtil.json());
+                get(path, method, route, jsonTransformer);
                 break;
             case "POST":
-                post(path, method, route, JsonUtil.json());
+                post(path, method, route, jsonTransformer);
                 break;
             case "PUT":
-                put(path, method, route, JsonUtil.json());
+                put(path, method, route, jsonTransformer);
                 break;
             case "DELETE":
-                delete(path, method, route, JsonUtil.json());
+                delete(path, method, route, jsonTransformer);
                 break;
         }
     }
