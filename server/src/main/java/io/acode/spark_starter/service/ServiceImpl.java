@@ -25,11 +25,11 @@ public class ServiceImpl implements Service {
 
     @Override
     public void start() {
-        buildRoute("GET", "/user", userRoute::get);
-        buildRoute("GET", "/user/:id", userRoute::getById);
-        buildRoute("POST", "/user", userRoute::create);
-        buildRoute("PUT", "/user", userRoute::update);
-        buildRoute("DELETE", "/user/:id", userRoute::delete);
+        buildRoute("GET", "/users", userRoute::get);
+        buildRoute("GET", "/users/:id", userRoute::getById);
+        buildRoute("POST", "/users", userRoute::create);
+        buildRoute("PUT", "/users", userRoute::update);
+        buildRoute("DELETE", "/users/:id", userRoute::delete);
     }
 
     private void buildRoute(String method, String path, Route route) {
