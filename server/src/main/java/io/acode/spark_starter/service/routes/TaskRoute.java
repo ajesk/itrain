@@ -2,13 +2,14 @@ package io.acode.spark_starter.service.routes;
 
 import com.google.inject.Inject;
 import io.acode.itrain.control.ControlResponse;
-import io.acode.itrain.control.user.UserControl;
-import io.acode.itrain.control.user.UserControlImpl;
+import io.acode.itrain.control.task.TaskControl;
+import io.acode.itrain.control.task.TaskControlImpl;
+import io.acode.itrain.models.Task;
+import io.acode.spark_starter.util.JsonUtil;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import io.acode.itrain.models.User;
-import spark.*;
-import io.acode.spark_starter.util.JsonUtil;
+import spark.Request;
+import spark.Response;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -25,29 +26,29 @@ import java.util.List;
  * Try not to use this to handle any business logic as this should be treated more as a pass through to your Controller
  * classes. This here should be utilized just to handle the Spark internals regarding the request and response.
  */
-@Path("/user")
+@Path("/task")
 @Slf4j
-public class UserRoute extends Route {
+public class TaskRoute extends Route {
 
-    private UserControl userService;
+    private TaskControl taskService;
 
     @Inject
-    public UserRoute(UserControlImpl userService) {
-        this.userService = userService;
+    public TaskRoute(TaskControlImpl taskService) {
+        this.taskService = taskService;
     }
 
     @GET
     @Path("/")
     @ApiOperation(
-            value = "get all users",
-            notes = "gets all users"
+            value = "get all tasks",
+            notes = "gets all tasks"
     )
     @Override
-    public List<User> get(Request request, Response response) {
-        log.info("get all users called");
+    public List<Task> get(Request request, Response response) {
+        log.info("get all tasks called");
 
         try {
-            ControlResponse<List<User>> controlResponse = userService.getAllUsers();
+            ControlResponse<List<Task>> controlResponse = taskService.getAllTasks();
             if (!controlResponse.isSuccess()) {
                 response.status(404);
                 return new ArrayList<>();
@@ -64,14 +65,14 @@ public class UserRoute extends Route {
     }
 
     @GET
-    @Path("/{userId}")
+    @Path("/{taskid}")
     @ApiOperation(
-            value = "get user by id",
-            notes = "get a single user by its ID"
+            value = "get task by id",
+            notes = "get a single task by its ID"
     )
     @Override
-    public User getById(Request request, Response response) {
-        log.info("get user by id called");
+    public Task getById(Request request, Response response) {
+        log.info("get task by id called");
         int id;
 
         try {
@@ -79,24 +80,24 @@ public class UserRoute extends Route {
         } catch (Exception e) {
             log.error("invalid id provided");
             response.status(422);
-            return new User();
+            return new Task();
         }
 
-        ControlResponse controlResponse = userService.getUser(id);
+        ControlResponse controlResponse = taskService.getTask(id);
 
         if (!controlResponse.isSuccess()) {
-            log.warn("user not found");
+            log.warn("task not found");
             response.status(404);
             return null;
         }
 
-        if (controlResponse.getResult() instanceof User) {
+        if (controlResponse.getResult() instanceof Task) {
             response.status(200);
-            return (User) controlResponse.getResult();
+            return (Task) controlResponse.getResult();
         }
 
         response.status(500);
-        return new User();
+        return new Task();
     }
 
     @POST
@@ -104,19 +105,19 @@ public class UserRoute extends Route {
     @Consumes()
     @Override
     public String create(Request request, Response response) {
-        log.info("create user called");
-        User user = JsonUtil.fromJson(request.body(), User.class);
+        log.info("create task called");
+        Task task = JsonUtil.fromJson(request.body(), Task.class);
 
-        if (user == null) {
+        if (task == null) {
             response.status(422);
             return "unable to parse request body";
         }
 
-        ControlResponse controlResponse = userService.createUser(user);
+        ControlResponse controlResponse = taskService.createTask(task);
 
         if (!controlResponse.isSuccess()) {
             response.status(500);
-            return "unable to create user";
+            return "unable to create task";
         }
 
         response.status(200);
@@ -125,20 +126,20 @@ public class UserRoute extends Route {
 
     @Override
     public String update(Request request, Response response) {
-        log.info("update user called");
+        log.info("update task called");
         try {
-            User user = JsonUtil.fromJson(request.body(), User.class);
+            Task task = JsonUtil.fromJson(request.body(), Task.class);
 
-            if (user == null) {
+            if (task == null) {
                 response.status(400);
                 return "unable to parse request body";
             }
 
-            ControlResponse controlResponse = userService.updateUser(user);
+            ControlResponse controlResponse = taskService.updateTask(task);
 
             if (!controlResponse.isSuccess()) {
                 response.status(404);
-                return "user does not exist";
+                return "task does not exist";
             }
         } catch (Exception e) {
             log.error("exception caught in handling update: " + e.getMessage());
@@ -152,7 +153,7 @@ public class UserRoute extends Route {
 
     @Override
     public String delete(Request request, Response response) {
-        log.info("delete user called");
+        log.info("delete task called");
         int id;
 
         try {
@@ -163,21 +164,15 @@ public class UserRoute extends Route {
             return "error";
         }
 
-        ControlResponse controlResponse = userService.deleteUser(id);
+        ControlResponse controlResponse = taskService.deleteTask(id);
 
         if (!controlResponse.isSuccess()) {
-            log.warn("user not deleted");
+            log.warn("task not deleted");
             response.status(404);
             return "error";
         }
 
         response.status(200);
         return "ok";
-    }
-
-    public String getTaskLists(Request request, Response response) {
-
-
-        return "";
     }
 }

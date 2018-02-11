@@ -2,7 +2,7 @@ package io.acode.spark_starter;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import io.acode.spark_starter.control.ControlModule;
+import io.acode.itrain.control.ControlModule;
 import lombok.extern.slf4j.Slf4j;
 import io.acode.spark_starter.service.Service;
 import io.acode.spark_starter.service.ServiceImpl;

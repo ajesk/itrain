@@ -1,6 +1,7 @@
 package io.acode.spark_starter.service;
 
 import com.google.inject.Inject;
+import io.acode.spark_starter.service.routes.TaskRoute;
 import io.acode.spark_starter.service.routes.UserRoute;
 import lombok.extern.slf4j.Slf4j;
 import io.acode.spark_starter.util.JsonUtil;
@@ -15,36 +16,54 @@ import static spark.Spark.*;
  */
 @Slf4j
 public class ServiceImpl implements Service {
-    private UserRoute userRoute = null;
+    private UserRoute userRoute;
+    private TaskRoute taskRoute;
     private ResponseTransformer jsonTransformer = JsonUtil.json();
 
     @Inject
-    public ServiceImpl(UserRoute userRoute) {
+    public ServiceImpl(UserRoute userRoute, TaskRoute taskRoute) {
         this.userRoute = userRoute;
+        this.taskRoute = taskRoute;
     }
 
     @Override
     public void start() {
-        buildRoute("GET", "/users", userRoute::get);
-        buildRoute("GET", "/users/:id", userRoute::getById);
-        buildRoute("POST", "/users", userRoute::create);
-        buildRoute("PUT", "/users", userRoute::update);
-        buildRoute("DELETE", "/users/:id", userRoute::delete);
+        userPaths();
+        taskPaths();
     }
 
-    private void buildRoute(String method, String path, Route route) {
-        switch (method.toUpperCase()) {
-            case "GET":
-                get(path, method, route, jsonTransformer);
+    private void userPaths() {
+        // user
+        buildRoute(Method.GET, "/users", userRoute::get);
+        buildRoute(Method.GET, "/users/:id", userRoute::getById);
+        buildRoute(Method.POST, "/users", userRoute::create);
+        buildRoute(Method.PUT, "/users", userRoute::update);
+        buildRoute(Method.DELETE, "/users/:id", userRoute::delete);
+        buildRoute(Method.GET, "/users/:id/tasklists", userRoute::getTaskLists);
+    }
+
+    private void taskPaths() {
+        buildRoute(Method.GET, "/tasks", taskRoute::get);
+        buildRoute(Method.GET, "/tasks/:id", taskRoute::getById);
+        buildRoute(Method.POST, "/tasks", taskRoute::create);
+        buildRoute(Method.PUT, "/tasks/:id", taskRoute::update);
+        buildRoute(Method.DELETE, "/tasks/:id", taskRoute::delete);
+
+    }
+
+    private void buildRoute(Method method, String path, Route route) {
+        switch (method) {
+            case GET:
+                get(path, "GET", route, jsonTransformer);
                 break;
-            case "POST":
-                post(path, method, route, jsonTransformer);
+            case POST:
+                post(path, "POST", route, jsonTransformer);
                 break;
-            case "PUT":
-                put(path, method, route, jsonTransformer);
+            case PUT:
+                put(path, "PUT", route, jsonTransformer);
                 break;
-            case "DELETE":
-                delete(path, method, route, jsonTransformer);
+            case DELETE:
+                delete(path, "DELETE", route, jsonTransformer);
                 break;
         }
     }
