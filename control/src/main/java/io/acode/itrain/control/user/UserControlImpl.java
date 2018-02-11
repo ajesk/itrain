@@ -36,18 +36,16 @@ public class UserControlImpl implements UserControl {
     }
 
     public ControlResponse<List<User>> getAllUsers() {
-        /*
-        List<User> userList = users.entrySet().stream()
-                    .map(Map.Entry::getValue)
-                    .collect(Collectors.toList());
-
-        if (userList.isEmpty()) {
-            return new ControlResponse<>(false, "no users found");
+        List users = db.get("from User");
+        if (users.isEmpty()) {
+            return new ControlResponse<>(false, "user result set empty");
         }
 
-        return new ControlResponse<>(userList);
-        */
-        return new ControlResponse<>();
+        if (!(users.get(0) instanceof User)) {
+            return new ControlResponse<>(false, "non-user results returned from query");
+        }
+
+        return new ControlResponse<>((List<User>) users);
     }
 
     public ControlResponse<User> getUser(int id) {

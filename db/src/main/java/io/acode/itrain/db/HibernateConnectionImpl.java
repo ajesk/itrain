@@ -5,6 +5,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.query.Query;
+
+import java.util.List;
 
 public class HibernateConnectionImpl implements HibernateConnection {
     SessionFactory sessionFactory;
@@ -72,10 +75,12 @@ public class HibernateConnectionImpl implements HibernateConnection {
     }
 
     @Override
-    public Object get(Class clas) {
+    public List get(String queryString) {
         Session session = getSession();
+        Query query = session.createQuery(queryString);
+        List results = query.list();
         session.close();
-        return null;
+        return results;
     }
 
     @Override

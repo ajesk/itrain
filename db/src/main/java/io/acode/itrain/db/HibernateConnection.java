@@ -1,6 +1,8 @@
 package io.acode.itrain.db;
 
 
+import java.util.List;
+
 public interface HibernateConnection extends Connection {
     /**
      * Pass in any of the models set up for the ORM to save them to the
@@ -21,8 +23,12 @@ public interface HibernateConnection extends Connection {
      */
     void delete(Object object);
 
-
-    Object get(Class clas);
+    /**
+     * A freeform query for specific needs
+     * @param query
+     * @return
+     */
+    List get(String query);
 
     /**
      * get an object based upon its class and id.

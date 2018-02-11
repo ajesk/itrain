@@ -12,6 +12,7 @@
         <property name="show_sql">true</property>
 
         <mapping class="io.acode.itrain.models.User" />
+        <mapping class="io.acode.itrain.models.Task" />
 
     </session-factory>
 </hibernate-configuration>

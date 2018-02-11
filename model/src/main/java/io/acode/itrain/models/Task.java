@@ -12,15 +12,12 @@ import java.util.List;
  */
 @Data
 @Entity
+@Table(name = "task")
 public class Task {
     @Id
     private int id;
-
-
     private String name;
     private String topic;
     private String content;
-
-
     private int creatorId;
 }
