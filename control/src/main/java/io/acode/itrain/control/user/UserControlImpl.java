@@ -6,16 +6,7 @@ import io.acode.itrain.db.HibernateConnection;
 import io.acode.itrain.db.HibernateConnectionImpl;
 import lombok.extern.slf4j.Slf4j;
 import io.acode.itrain.models.User;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * Created by Aaron on 2/17/17.

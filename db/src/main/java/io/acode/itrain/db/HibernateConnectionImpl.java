@@ -10,7 +10,7 @@ import org.hibernate.query.Query;
 import java.util.List;
 
 public class HibernateConnectionImpl implements HibernateConnection {
-    SessionFactory sessionFactory;
+    private SessionFactory sessionFactory;
 
     public HibernateConnectionImpl() {
         connect();
