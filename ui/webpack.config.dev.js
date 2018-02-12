@@ -1,96 +1,124 @@
-const path = require('path');
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+import webpack from 'webpack';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import path from 'path';
 
-module.exports = {
-  context: path.resolve(__dirname, 'src'),
-
-  devtool: 'cheap-module-source-map',
-
-  entry: [
-    'babel-polyfill',
-
-    'react-hot-loader/patch',
-     // activate HMR for React
-
-    'webpack-dev-server/client?http://localhost:8080',
-    // bundle the client for webpack-dev-server
-    // and connect to the provided endpoint
-
-    'webpack/hot/only-dev-server',
-    // bundle the client for hot reloading
-    // only- means to only hot reload for successful updates
-
-    './main.js'
-  ],
-
-  output: {
-    filename: 'bundle.js',
-    // the output bundle
-
-    path: path.resolve(__dirname, 'dist'),
-
-    publicPath: '/'
-    // necessary for HMR to know where to load the hot update chunks
-  },
-
-  devServer: {
-    hot: true,
-    // enable HMR on the server
-
-    contentBase: path.resolve(__dirname, 'dist'),
-    // match the output path
-
-    publicPath: '/'
-    // match the output `publicPath`
-  },
-
+export default {
   resolve: {
-    modules: [
-       path.resolve(__dirname, 'src'),
-      'node_modules'
-    ],
-    extensions: ['.js', '.jsx', '.scss', '.css', '.json'],
-    alias: {
-      components: path.resolve(__dirname, 'src/components')
-    },
+    extensions: ['*', '.js', '.jsx', '.json']
   },
-
+  devtool: 'cheap-module-eval-source-map', // more info:https://webpack.js.org/guides/development/#using-source-maps and https://webpack.js.org/configuration/devtool/
+  entry: [
+    // must be first entry to properly set public path
+    './src/webpack-public-path',
+    'react-hot-loader/patch',
+    'webpack-hot-middleware/client?reload=true',
+    path.resolve(__dirname, 'src/index.js') // Defining path seems necessary for this to work consistently on Windows machines.
+  ],
+  target: 'web',
+  output: {
+    path: path.resolve(__dirname, 'dist'), // Note: Physical files are only output by the production build task `npm run build`.
+    publicPath: '/',
+    filename: 'bundle.js'
+  },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin(),
     new webpack.DefinePlugin({
-      __DEVELOPMENT__: true
+      'process.env.NODE_ENV': JSON.stringify('development'), // Tells React to build in either dev or prod modes. https://facebook.github.io/react/downloads.html (See bottom)
+      __DEV__: true
     }),
-    new HtmlWebpackPlugin({
-      title: 'New React Project',
-      template: 'index.ejs'
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
+    new HtmlWebpackPlugin({     // Create HTML file that includes references to bundled CSS and JS.
+      template: 'src/index.ejs',
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true
+      },
+      inject: true
     })
   ],
-
   module: {
     rules: [
       {
-        test: /\.scss$/,
-        use: [
-          { loader: 'style-loader' },
-          { loader: 'css-loader' },
-          { loader: 'autoprefixer-loader', options: { browsers: 'last 2 versions' } },
-          { loader: 'sass-loader', options: { outputStyle: 'expanded' } }
-        ]
-      },
-      {
-        test: /\.(ttf|eot|svg|woff)(\?[a-z0-9]+)?$/,
-        use: [
-          { loader: 'file-loader?name=[path][name].[ext]' }
-        ]
-      },
-      {
-        test: /\.(js|jsx)?$/,
+        test: /\.jsx?$/,
         exclude: /node_modules/,
-        use: [{
-          loader: 'babel-loader'
-        }]
+        use: ['babel-loader']
+      },
+      {
+        test: /\.eot(\?v=\d+.\d+.\d+)?$/,
+        use: ['file-loader']
+      },
+      {
+        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 10000,
+              mimetype: 'application/font-woff'
+            }
+          }
+        ]
+      },
+      {
+        test: /\.[ot]tf(\?v=\d+.\d+.\d+)?$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 10000,
+              mimetype: 'application/octet-stream'
+            }
+          }
+        ]
+      },
+      {
+        test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 10000,
+              mimetype: 'image/svg+xml'
+            }
+          }
+        ]
+      },
+      {
+        test: /\.(jpe?g|png|gif|ico)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]'
+            }
+          }
+        ]
+      },
+      {
+        test: /(\.css|\.scss|\.sass)$/,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true
+            }
+          }, {
+            loader: 'postcss-loader',
+            options: {
+              plugins: () => [
+                require('autoprefixer')
+              ],
+              sourceMap: true
+            }
+          }, {
+            loader: 'sass-loader',
+            options: {
+              includePaths: [path.resolve(__dirname, 'src', 'scss')],
+              sourceMap: true
+            }
+          }
+        ]
       }
     ]
   }
