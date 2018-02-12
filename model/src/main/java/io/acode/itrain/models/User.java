@@ -9,8 +9,6 @@ import javax.persistence.Table;
 
 /**
  * Created by Aaron on 2/17/17.
- *
- * Just a model
  */
 @Entity
 @Data

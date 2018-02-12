@@ -26,7 +26,6 @@ import java.util.List;
  * Try not to use this to handle any business logic as this should be treated more as a pass through to your Controller
  * classes. This here should be utilized just to handle the Spark internals regarding the request and response.
  */
-@Path("/task")
 @Slf4j
 public class TaskRoute extends Route {
 
@@ -37,12 +36,6 @@ public class TaskRoute extends Route {
         this.taskService = taskService;
     }
 
-    @GET
-    @Path("/")
-    @ApiOperation(
-            value = "get all tasks",
-            notes = "gets all tasks"
-    )
     @Override
     public List<Task> get(Request request, Response response) {
         log.info("get all tasks called");
@@ -64,12 +57,6 @@ public class TaskRoute extends Route {
         return new ArrayList<>();
     }
 
-    @GET
-    @Path("/{taskid}")
-    @ApiOperation(
-            value = "get task by id",
-            notes = "get a single task by its ID"
-    )
     @Override
     public Task getById(Request request, Response response) {
         log.info("get task by id called");
@@ -100,9 +87,6 @@ public class TaskRoute extends Route {
         return new Task();
     }
 
-    @POST
-    @Path("/")
-    @Consumes()
     @Override
     public String create(Request request, Response response) {
         log.info("create task called");

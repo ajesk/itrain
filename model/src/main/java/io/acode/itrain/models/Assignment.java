@@ -4,15 +4,15 @@ import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.util.List;
+import javax.persistence.Table;
 
 @Entity
 @Data
-public class TaskList {
-
+@Table(name = "assignment")
+public class Assignment {
     @Id
     private int id;
-    private int assignee;
+    private int user_id;
     private int task_id;
     private String status;
 }

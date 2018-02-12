@@ -8,7 +8,6 @@ import javax.persistence.*;
 @Table(name = "difficulty")
 @Data
 public class Difficulty {
-
     @Id
     private int id;
     private int value;

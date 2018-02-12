@@ -25,7 +25,6 @@ import java.util.List;
  * Try not to use this to handle any business logic as this should be treated more as a pass through to your Controller
  * classes. This here should be utilized just to handle the Spark internals regarding the request and response.
  */
-@Path("/user")
 @Slf4j
 public class UserRoute extends Route {
 
@@ -36,12 +35,6 @@ public class UserRoute extends Route {
         this.userService = userService;
     }
 
-    @GET
-    @Path("/")
-    @ApiOperation(
-            value = "get all users",
-            notes = "gets all users"
-    )
     @Override
     public List<User> get(Request request, Response response) {
         log.info("get all users called");
@@ -63,12 +56,6 @@ public class UserRoute extends Route {
         return new ArrayList<>();
     }
 
-    @GET
-    @Path("/{userId}")
-    @ApiOperation(
-            value = "get user by id",
-            notes = "get a single user by its ID"
-    )
     @Override
     public User getById(Request request, Response response) {
         log.info("get user by id called");
@@ -99,9 +86,6 @@ public class UserRoute extends Route {
         return new User();
     }
 
-    @POST
-    @Path("/")
-    @Consumes()
     @Override
     public String create(Request request, Response response) {
         log.info("create user called");

@@ -19,5 +19,5 @@ public class Task {
     private String name;
     private String topic;
     private String content;
-    private int creatorId;
+    private int user_id;
 }

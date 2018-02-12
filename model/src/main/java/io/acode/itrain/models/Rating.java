@@ -6,11 +6,11 @@ import javax.persistence.*;
 
 @Entity
 @Data
+@Table(name = "rating")
 public class Rating {
-
     @Id
     private double id;
-    private float value;
+    private int value;
     private int user_id;
     private int task_id;
 }
