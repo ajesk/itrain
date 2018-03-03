@@ -1,23 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { ConnectedRouter } from 'react-router-redux';
-import { Provider } from 'react-redux';
-import App from './App';
+import { Field, reduxForm } from 'redux-form';
+const log = require('simple-console-logger').getLogger('Root');
 
-export default class Root extends Component {
-  render() {
-    const { store, history } = this.props;
-    return (
-      <Provider store={store}>
-        <ConnectedRouter history={history}>
-          <App />
-        </ConnectedRouter>
-      </Provider>
-    );
-  }
+/**
+ * Display a simple form with buttons to say hello. The
+ * message field uses redux-form as an example of validation.
+ */
+class Root extends React.Component {
+    render() {
+        return (
+            <div>
+                
+            </div>
+        )
+    }
 }
 
-Root.propTypes = {
-  store: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired
-};
+export default Root;
