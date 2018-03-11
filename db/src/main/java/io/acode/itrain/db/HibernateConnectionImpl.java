@@ -12,10 +12,6 @@ import java.util.List;
 public class HibernateConnectionImpl implements HibernateConnection {
     private SessionFactory sessionFactory;
 
-    public HibernateConnectionImpl() {
-        connect();
-    }
-
     @Override
     public void connect() {
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
@@ -49,6 +45,7 @@ public class HibernateConnectionImpl implements HibernateConnection {
 
     @Override
     public void save(Object object) {
+        if (!isConnected()) connect();
         Session session = getSession();
         session.beginTransaction();
         session.save(object);
@@ -58,6 +55,7 @@ public class HibernateConnectionImpl implements HibernateConnection {
 
     @Override
     public void update(Object object) {
+        if (!isConnected()) connect();
         Session session = getSession();
         session.beginTransaction();
         session.update(object);

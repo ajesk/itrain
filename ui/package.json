@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "aws-sdk": "^2.205.0",
     "axios": "^0.17.1",
     "bootstrap": "^4.0.0",
     "bootstrap-sass": "^3.3.7",
     "history": "^4.7.2",
+    "jquery": "^3.3.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.6",
@@ -25,5 +27,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "popper": "^1.0.1"
   }
 }

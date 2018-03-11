@@ -4,9 +4,12 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { Route, Switch } from 'react-router-dom';
 import Logger from 'simple-console-logger';
+import NavBar from './components/nav/NavBar';
 
 import HelloContainer from './hello/HelloContainer';
-import Nav from './components/nav/NavBar';
+import Home from './components/Home'
+import TaskContainer from './components/task/TaskContainer'
+import UserContainer from './components/user/UserContainer'
 
 Logger.configure({level: 'debug'});
 
@@ -18,18 +21,27 @@ class App extends Component {
 
   render() {
     return (
-      <Provider store={this.props.store}>
-        <BrowserRouter>
-          <Switch>
-            <Route exact path="/hello" render={(props) => (
-              <div>
-                <HelloContainer />
-              </div>
-            )}/>
-            <Route path="/" component={HelloContainer} />
-          </Switch>
-        </BrowserRouter>  
-      </Provider>
+      <div>
+        <NavBar />
+        <Provider store={this.props.store}>
+          <BrowserRouter>
+            <Switch>
+              <Route exact path="/hello" render={(props) => (
+                <div><HelloContainer /></div>
+              )}/>
+              <Route exact path="/task" render={(props) => (
+                <div><TaskContainer /></div>
+              )}/>
+              <Route exact path="/user" render={(props) => (
+                <div><UserContainer /></div>
+              )}/>
+              <Route path="/home" component={Home} />
+              <Route path="/" component={Home} />
+            </Switch>
+          </BrowserRouter>  
+        </Provider>
+      </div>
+      
     );
   }
 }
