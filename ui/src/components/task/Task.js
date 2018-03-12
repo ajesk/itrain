@@ -1,6 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Field, reduxForm } from 'redux-form';
 const log = require('simple-console-logger').getLogger('Task');
 
 /**
@@ -9,7 +7,9 @@ const log = require('simple-console-logger').getLogger('Task');
 class Task extends React.Component {
     render() {
         return (
-            <div />
+            <div >
+                
+            </div>
         )
     }
 }

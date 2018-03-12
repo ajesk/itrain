@@ -1,7 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Field, reduxForm } from 'redux-form';
+import TaskListRow from './TaskListRow';
 const log = require('simple-console-logger').getLogger('TaskList');
+
+function buildList(tasks) {
+    if (!tasks) return
+    return tasks.map(task => {
+        return <TaskListRow taskEntry={task} />
+    })
+}
 
 /**
  * Display the contents of a single task
@@ -9,7 +15,24 @@ const log = require('simple-console-logger').getLogger('TaskList');
 class TaskList extends React.Component {
     render() {
         return (
-            <div />
+            <div>
+                <div>
+                    <h2>Tasks</h2>
+                </div>
+                <table className='table table-hover table-striped'>
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Topic</th>
+                            <th scope="col">Author</th>
+                            <th scope="col">Content</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {buildList(this.props.tasks)}
+                    </tbody>
+                </table>
+            </div>
         )
     }
 }
