@@ -1,5 +1,6 @@
 package io.acode.itrain.db;
 
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
@@ -9,6 +10,7 @@ import org.hibernate.query.Query;
 
 import java.util.List;
 
+@Slf4j
 public class HibernateConnectionImpl implements HibernateConnection {
     private SessionFactory sessionFactory;
 
@@ -20,6 +22,7 @@ public class HibernateConnectionImpl implements HibernateConnection {
         try {
             sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
         } catch (Exception ex) {
+            log.error(ex.getMessage());
             StandardServiceRegistryBuilder.destroy(registry);
         }
     }
@@ -65,6 +68,7 @@ public class HibernateConnectionImpl implements HibernateConnection {
 
     @Override
     public void delete(Object object) {
+        if (!isConnected()) connect();
         Session session = getSession();
         session.beginTransaction();
         session.delete(object);
@@ -74,6 +78,7 @@ public class HibernateConnectionImpl implements HibernateConnection {
 
     @Override
     public List get(String queryString) {
+        if (!isConnected()) connect();
         Session session = getSession();
         Query query = session.createQuery(queryString);
         List results = query.list();
@@ -83,6 +88,7 @@ public class HibernateConnectionImpl implements HibernateConnection {
 
     @Override
     public Object get(int id, Class clas) {
+        if (!isConnected()) connect();
         Session session = getSession();
         Object object = session.get(clas, id);
         session.close();

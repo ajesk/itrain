@@ -32,8 +32,9 @@ class App extends Component {
               <Route exact path="/task" render={(props) => (
                 <div><TaskContainer /></div>
               )}/>
-              <Route exact path="/user" render={(props) => (
-                <div><UserContainer /></div>
+              <Route path="/user" component={UserContainer} />
+              <Route path="/user/:id" render={(props) => (
+                <UserContainer />
               )}/>
               <Route path="/home" component={Home} />
               <Route path="/" component={Home} />

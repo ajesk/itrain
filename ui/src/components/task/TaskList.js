@@ -1,5 +1,6 @@
 import React from 'react';
 import TaskListRow from './TaskListRow';
+import axios from 'axios';
 const log = require('simple-console-logger').getLogger('TaskList');
 
 function buildList(tasks) {
@@ -13,6 +14,9 @@ function buildList(tasks) {
  * Display the contents of a single task
  */
 class TaskList extends React.Component {
+    componentDidMount() {
+    }
+
     render() {
         return (
             <div>
@@ -33,7 +37,7 @@ class TaskList extends React.Component {
                     </tbody>
                 </table>
             </div>
-        )
+        );
     }
 }
 

@@ -6,6 +6,8 @@ import io.acode.itrain.db.HibernateConnection;
 import io.acode.itrain.db.HibernateConnectionImpl;
 import lombok.extern.slf4j.Slf4j;
 import io.acode.itrain.models.User;
+
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -28,6 +30,7 @@ public class UserControlImpl implements UserControl {
 
     public ControlResponse<List<User>> getAllUsers() {
         List users = db.get("from User");
+        log.debug(Arrays.toString(users.toArray()));
         if (users.isEmpty()) {
             return new ControlResponse<>(false, "user result set empty");
         }

@@ -6,16 +6,14 @@ import Task from './Task';
 const log = require('simple-console-logger').getLogger('TaskContainer');
 
 function taskPage(id) {
-    var task = null; //todo: put in http call for back end api
     return (
-        <Task task={task} />
+        <Task taskId={id} />
     )
 }
 
 function taskList() {
-    var tasks = null; //todo: put in http call for back end api
     return (
-        <TaskList tasks={tasks} />
+        <TaskList />
     )
 }
 
