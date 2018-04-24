@@ -1,6 +1,7 @@
 import React from 'react';
 import TaskListRow from './TaskListRow';
 import axios from 'axios';
+import List from '../common/List';
 const log = require('simple-console-logger').getLogger('TaskList');
 
 function buildList(tasks) {
@@ -18,11 +19,14 @@ class TaskList extends React.Component {
     }
 
     render() {
+        const columns = ['name', 'topic', 'author', 'content'];
+        const data = [];
         return (
             <div>
                 <div>
                     <h2>Tasks</h2>
                 </div>
+                <List data={data} columns={columns} />
                 <table className='table table-hover table-striped'>
                     <thead>
                         <tr>

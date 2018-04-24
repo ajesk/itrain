@@ -22,7 +22,7 @@ class UserList extends React.Component {
     state = {
         users: []
     }
-
+             
     componentDidMount() {
         // const users = get('/users', function(users) {
         //     UserList.setState({users})

@@ -3,7 +3,6 @@ package io.acode.itrain.models;
 import lombok.Data;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -15,7 +14,7 @@ import javax.persistence.Table;
 @Table(name = "user")
 public class User {
     @Id
-    private int id;
+    private long id;
     private String name;
     private String email;
     private String position;
